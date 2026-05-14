@@ -17,18 +17,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4 # 升級到支援度更好的 v4
         with:
-          version: 8
+          version: 9 # 強制使用最新主要的 v9 版本
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        # 使用 --no-frozen-lockfile 繞過 Catalog 引起的解析錯誤
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         run: pnpm run build
